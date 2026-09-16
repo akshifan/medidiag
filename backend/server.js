@@ -21,7 +21,7 @@ app.use(session({
   resave: false,
   saveUninitialized: false,
   cookie: { 
-    secure: false, 
+    secure: process.env.NODE_ENV === 'production', 
     maxAge: 24 * 60 * 60 * 1000, // 24 hours
     httpOnly: true
   }
@@ -61,7 +61,7 @@ app.use((req, res) => {
 });
 
 const PORT = process.env.PORT || 3000;
-server.listen(PORT, () => {
+server.listen(PORT, '0.0.0.0', () => {
   console.log(`🚀 Server running on port ${PORT}`);
   console.log(`📊 ML Service: ${process.env.ML_SERVICE_URL || 'http://localhost:5000'}`);
   console.log(`💾 Database: ${process.env.DB_NAME || 'medidiag'}`);

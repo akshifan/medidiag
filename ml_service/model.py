@@ -185,6 +185,19 @@ class SymptomMLModel:
                     "tiredness"
                 ],
                 "rare": ["confusion"]
+            },
+            "Ortho related Injury": {
+                "core": [
+                    "joint pain",
+                    "swelling",
+                    "limited movement",
+                    "back pain"
+                ],
+                "common": [
+                    "muscle ache",
+                    "stiffness"
+                ],
+                "rare": ["numbness"]
             }
         }
 
@@ -349,7 +362,9 @@ class SymptomMLModel:
             "Appendicitis":
                 "This may require urgent medical evaluation. Go to the hospital immediately.",
             "Pneumonia":
-                "Medical treatment is required. Consult a Pulmonologist immediately."
+                "Medical treatment is required. Consult a Pulmonologist immediately.",
+            "Ortho related Injury":
+                "Rest, ice, compression, and elevation. Consult an Orthopedic Specialist."
         }
 
         base = recommendations.get(
