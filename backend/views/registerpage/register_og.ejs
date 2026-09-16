@@ -19,8 +19,9 @@
         <div class="register-container">
 
             <!-- ONLY ONE FORM -->
-            <form id="register-form" class="register-form" action="/auth/register?role=<%= locals.role %>" method="POST">
+            <form id="register-form" class="register-form" action="/auth/register" method="POST">
 
+                <input type="hidden" name="role" id="selected-role" value="<%= locals.role || '' %>">
                 <div class="form-header">
                     <h1>Create Your Account</h1>
                     <p>Join thousands of patients and doctors using MediDiag</p>
@@ -39,7 +40,6 @@
                             name="role" 
                             value="patient"
                             <%= locals.role === "patient" ? "checked" : "" %>
-                            <%= locals.role ? "disabled" : "" %>
                         >
                         <label for="patient" class="role-label">
                             <span class="role-icon">👤</span>
@@ -54,7 +54,6 @@
                             name="role" 
                             value="doctor"
                             <%= locals.role === "doctor" ? "checked" : "" %>
-                            <%= locals.role ? "disabled" : "" %>
                         >
                         <label for="doctor" class="role-label">
                             <span class="role-icon">👨‍⚕</span>
@@ -182,6 +181,17 @@
                 medicalBackground.appendChild(el);
             });
         });
+
+        document.addEventListener("DOMContentLoaded", function () {
+        const roleInputs = document.querySelectorAll('input[name="role"]');
+        const selectedRole = document.getElementById("selected-role");
+
+        roleInputs.forEach(input => {
+            input.addEventListener("change", function () {
+                selectedRole.value = this.value;
+            });
+        });
+    });
     </script>
 
 </body>
