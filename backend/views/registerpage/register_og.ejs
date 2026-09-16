@@ -19,9 +19,19 @@
         <div class="register-container">
 
             <!-- ONLY ONE FORM -->
-            <form id="register-form" class="register-form" action="/auth/register" method="POST">
+             <form
+    id="register-form"
+    class="register-form"
+    action="/auth/register?role=<%= locals.role || '' %>"
+    method="POST"
+>
 
-                <input type="hidden" name="role" id="selected-role" value="<%= locals.role || '' %>">
+<input
+    type="hidden"
+    name="role"
+    id="selected-role"
+    value="<%= locals.role || '' %>"
+>
                 <div class="form-header">
                     <h1>Create Your Account</h1>
                     <p>Join thousands of patients and doctors using MediDiag</p>
@@ -183,15 +193,26 @@
         });
 
         document.addEventListener("DOMContentLoaded", function () {
-        const roleInputs = document.querySelectorAll('input[name="role"]');
-        const selectedRole = document.getElementById("selected-role");
+    const roleInputs = document.querySelectorAll('input[name="role"]');
+    const selectedRole = document.getElementById("selected-role");
+    const form = document.getElementById("register-form");
 
-        roleInputs.forEach(input => {
-            input.addEventListener("change", function () {
-                selectedRole.value = this.value;
-            });
+    roleInputs.forEach(input => {
+        input.addEventListener("change", function () {
+            selectedRole.value = this.value;
         });
     });
+
+    form.addEventListener("submit", function () {
+        const checkedRole = document.querySelector('input[name="role"]:checked');
+
+        if (checkedRole) {
+            selectedRole.value = checkedRole.value;
+        }
+
+        console.log("Submitting role:", selectedRole.value);
+    });
+});
     </script>
 
 </body>

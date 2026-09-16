@@ -101,16 +101,18 @@ router.post("/register", async (req, res) => {
 
     // Create user
     // Create user
-const role = req.body.role || req.query.role;
+const role = (req.body.role || req.query.role || "").trim().toLowerCase();
 
 console.log("Registration role:", role);
+console.log("Registration body:", req.body);
+console.log("Registration query:", req.query);
 
 // Only allow valid application roles
 if (!["patient", "doctor"].includes(role)) {
   return res.render("registerpage/register", {
     title: "Register - MediDiag",
     error: "Please select a valid account type.",
-    role: null,
+    role: role ||null,
   });
 }
 
